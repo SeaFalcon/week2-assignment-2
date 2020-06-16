@@ -4,23 +4,23 @@ import TodoList from './TodoList';
 import Form from './Form';
 
 export default function Page({
-  items,
-  text,
-  handleChange,
-  handleClick,
-  deleteItem,
+  taskTitle,
+  onChangeTitle,
+  onClickAddTask,
+  tasks,
+  onClickDeleteTask,
 }) {
   return (
     <div>
       <h1>To-do</h1>
       <Form
-        value={text}
-        onChange={handleChange}
-        onClick={handleClick}
+        taskTitle={taskTitle}
+        onChange={onChangeTitle}
+        onClick={onClickAddTask}
       />
       <TodoList
-        items={items}
-        onClick={deleteItem}
+        tasks={tasks}
+        onClick={onClickDeleteTask}
       />
     </div>
   );

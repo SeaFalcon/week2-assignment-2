@@ -3,30 +3,44 @@ import React, { useState } from 'react';
 import Page from './Page';
 
 export default function App() {
-  const [text, setText] = useState('');
-  const [items, setItems] = useState([]);
+  const [state, setState] = useState({
+    newId: 1,
+    tasks: [],
+    taskTitle: '',
+  });
 
-  function handleChange(event) {
-    setText(event.target.value);
+  const { tasks, taskTitle, newId } = state;
+
+  function handleChangeTitle(event) {
+    setState({
+      ...state,
+      taskTitle: event.target.value,
+    });
   }
 
-  function handleClick() {
-    if (!text) return;
-    setItems([...items, { id: new Date().valueOf() + Math.random(), value: text }]);
-    setText('');
+  function handleClickAddTask() {
+    if (!taskTitle) return;
+    setState({
+      newId: newId + 1,
+      tasks: [...tasks, { id: newId, title: taskTitle }],
+      taskTitle: '',
+    });
   }
 
-  function deleteItem(item) {
-    setItems(items.filter((i) => i.id !== item.id));
+  function handleClickDeleteTask(task) {
+    setState({
+      ...state,
+      tasks: tasks.filter((i) => i.id !== task.id),
+    });
   }
 
   return (
     <Page
-      items={items}
-      text={text}
-      handleChange={handleChange}
-      handleClick={handleClick}
-      deleteItem={deleteItem}
+      taskTitle={taskTitle}
+      onChangeTitle={handleChangeTitle}
+      onClickAddTask={handleClickAddTask}
+      tasks={tasks}
+      onClickDeleteTask={handleClickDeleteTask}
     />
   );
 }

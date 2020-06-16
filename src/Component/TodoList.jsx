@@ -1,19 +1,21 @@
 import React from 'react';
 
 import Empty from './Empty';
+import Item from './Item';
 
-export default function TodoList({ items, onClick }) {
-  if (!items.length) {
+export default function TodoList({ tasks, onClick }) {
+  if (!tasks.length) {
     return <Empty />;
   }
   return (
-    items.map((item, i) => (
-      <div key={item.id}>
-        {i + 1}
-        .
-        {item.value}
-        <button type="button" onClick={() => onClick(item)}>완료</button>
-      </div>
-    ))
+    <ol>
+      {tasks.map((task) => (
+        <Item
+          key={task.id}
+          task={task}
+          onClick={onClick}
+        />
+      ))}
+    </ol>
   );
 }
